@@ -4,22 +4,24 @@ import shlex
 import subprocess
 
 class RClone(object):
-    def __init__(self, config_path):
+    def __init__(self, config_path, binary_path='rclone'):
         self.logger = logging.getLogger(self.__class__.__name__)
         if not os.path.exists(config_path) or not os.path.isfile(config_path):
             raise FileNotFoundError("Could Not Find Config File")
         self.config_path = config_path
+        self.binary_path = binary_path
 
     @classmethod
     def commands(cls):
         return [func for func in dir(cls) if callable(getattr(cls, func)) and not func.startswith("_")]
 
     def _build_command(self, command, arguments=[], flags=[]):
-        return shlex.split('rclone --config={0} {1} {2} {3}'.format(
+        return shlex.split('{4} --config={0} {1} {2} {3}'.format(
             self.config_path,
             command,
             " ".join(arguments),
-            " ".join(flags)
+            " ".join(flags),
+            self.binary_path
         ))
 
     def _execute(self, command, arguments=[], flags=[]):
