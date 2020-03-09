@@ -19,11 +19,12 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Ahmed Bodiwala",
     author_email='ahmedbodi@crypto-expert.com',
-    python_requires='>=3.5',
+    python_requires='>=2.7',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Natural Language :: English',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
@@ -46,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/ahmedbodi/python_rclone_wrapper',
-    version='version='0.2.0'',
+    version='0.2.0',
     zip_safe=False,
 )
