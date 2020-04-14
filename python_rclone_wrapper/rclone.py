@@ -32,21 +32,21 @@ class RClone(object):
             with subprocess.Popen(
                     command_with_args,
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE) as proc:
-                (out, err) = proc.communicate()
+                    stderr=subprocess.STDOUT,
+                    encoding='utf-8',
+                    errors='replace') as proc:
+                while True:
+                    output = proc.stdout.readline()
+                    if output == '' and proc.poll() is not None:
+                        break
 
-                if err:
-                    err = err.decode('utf-8').replace('\\n', '\n')
-                    self.logger.debug("Error Output: %s", err)
-
-                if out:
-                    out = out.decode('utf-8').replace('\\n', '\n')
-                    self.logger.debug("Output: %s", out)
+                    if output:
+                        self.logger.info(output.strip())
 
                 return {
                     "code": proc.returncode,
-                    "out": out,
-                    "error": err
+                    "out": "",
+                    "error": ""
                 }
         except FileNotFoundError as exc:
             self.logger.error("Executable not found. %s", exc)
