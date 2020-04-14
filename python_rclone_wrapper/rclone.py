@@ -32,16 +32,14 @@ class RClone(object):
             with subprocess.Popen(
                     command_with_args,
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    encoding='utf-8',
-                    errors='replace') as proc:
+                    stderr=subprocess.STDOUT) as proc:
                 while True:
                     output = proc.stdout.readline()
                     if output == '' and proc.poll() is not None:
                         break
 
                     if output:
-                        self.logger.info(output.strip())
+                        self.logger.info(output.decode('utf-8'))
 
                 return {
                     "code": proc.returncode,
