@@ -2,4 +2,4 @@
 
 __author__ = """Ahmed Bodiwala"""
 __email__ = 'ahmedbodi@crypto-expert.com'
-__version__ = '0.3.1'
+__version__ = '0.4.0'
